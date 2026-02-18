@@ -78,14 +78,14 @@ Then this will render on GitHub:
 
 ```mermaid
 flowchart LR
-  A[Admin UI] --> B[Catalog.Write.Api (.NET 10)]
-  B --> C[(Write DB - Postgres)]
-  B --> D[(Outbox Table)]
-  D --> E[Outbox Publisher Hosted Service]
-  E --> F[(Kafka Topic: catalog.events)]
-  F --> G[Projection Worker (.NET 10)]
-  H[Web/Mobile] --> I[Catalog.Read.Api (.NET 10)]
-  G --> J[(Read DB - Postgres)]
+  A["Admin UI"] --> B["Catalog.Write.Api (.NET 10)"]
+  B --> C[("Write DB - Postgres")]
+  B --> D[("Outbox Table")]
+  D --> E["Outbox Publisher (Hosted Service)"]
+  E --> F[("Kafka Topic: catalog.events")]
+  F --> G["Projection Worker (.NET 10)"]
+  H["Web/Mobile"] --> I["Catalog.Read.Api (.NET 10)"]
+  G --> J[("Read DB - Postgres")]
   I --> J
 ```
 
