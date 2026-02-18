@@ -25,6 +25,9 @@ A production-style CQRS starter for a `Catalog` domain with:
 - [Getting Started](#getting-started)
 - [Run The Services](#run-the-services)
 - [Verify Local Setup](#verify-local-setup)
+- [CI Pipeline](#ci-pipeline)
+- [Docker Publish Pipeline](#docker-publish-pipeline)
+- [GitOps With Argo CD (Next Step)](#gitops-with-argo-cd-next-step)
 - [Current Status](#current-status)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
@@ -277,6 +280,69 @@ List read-side tables:
 ```bash
 docker exec -it cqrs_postgres psql -U postgres -d catalog_read -c "\dt"
 ```
+
+## CI Pipeline
+
+GitHub Actions workflows are added under `.github/workflows`:
+
+- `ci.yml`: restore, build, code-style check (`dotnet format`), tests (if test projects exist), and test report artifact upload.
+- `codeql.yml`: CodeQL static analysis for C# on push, PR, and weekly schedule.
+- `dependency-review.yml`: dependency vulnerability/license risk checks on pull requests.
+
+## Docker Publish Pipeline
+
+Workflow: `.github/workflows/docker-publish.yml`
+
+What it does:
+
+- Builds and pushes 3 images to Docker Hub:
+  - `cqrs-catalog-write-api`
+  - `cqrs-catalog-read-api`
+  - `cqrs-catalog-projection-worker`
+- Uses Buildx with SBOM + provenance enabled.
+- Applies versioned tags automatically.
+
+### Docker Hub Secrets Required
+
+Set these repository secrets in GitHub:
+
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+
+### Tagging Strategy
+
+On `main` branch push:
+
+- `latest`
+- `main`
+- `sha-<commit>`
+
+On release tag push (example `v1.4.2`):
+
+- `v1.4.2`
+- `1.4.2`
+- `1.4`
+- `sha-<commit>`
+
+### Release Command
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+## GitOps With Argo CD (Next Step)
+
+A GitOps-ready guide is added at:
+
+- `deploy/argocd/README.md`
+
+Recommended production flow:
+
+1. CI builds and pushes versioned images to Docker Hub.
+2. Argo CD Image Updater tracks allowed semver tags.
+3. Argo CD syncs Kubernetes manifests from your GitOps repo.
+4. Rollback is done by reverting image tag/manifests in Git.
 
 ## Current Status
 
