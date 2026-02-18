@@ -5,9 +5,12 @@ on:
     branches: [main, master]
   push:
     branches: [main, master]
+    tags:
+      - 'v*.*.*'
 
 permissions:
   contents: read
+  security-events: write
 
 jobs:
   build-test-quality:
@@ -60,3 +63,119 @@ jobs:
           name: test-results
           path: TestResults
           if-no-files-found: ignore
+
+  docker-publish-scan:
+    if: github.event_name == 'push'
+    needs: build-test-quality
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: write-api
+            dockerfile: src/Catalog.Write.Api/Dockerfile
+          - service: read-api
+            dockerfile: src/Catalog.Read.Api/Dockerfile
+          - service: projection-worker
+            dockerfile: src/Catalog.Projection.Worker/Dockerfile
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute image tags
+        id: tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          IMAGE_REPO="docker.io/${{ secrets.DOCKERHUB_USERNAME }}/cqrs"
+          SERVICE="${{ matrix.service }}"
+          SHORT_SHA="${GITHUB_SHA::7}"
+          REF_NAME="${GITHUB_REF_NAME}"
+
+          TAGS="${IMAGE_REPO}:${SERVICE}-sha-${SHORT_SHA}"
+
+          if [[ "${GITHUB_REF_TYPE}" == "branch" ]]; then
+            SAFE_BRANCH="$(echo "${REF_NAME}" | tr '/' '-')"
+            TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${SERVICE}-${SAFE_BRANCH}"
+            if [[ "${REF_NAME}" == "main" || "${REF_NAME}" == "master" ]]; then
+              TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${SERVICE}-latest"
+            fi
+          fi
+
+          if [[ "${GITHUB_REF_TYPE}" == "tag" && "${REF_NAME}" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+            MAJOR="${BASH_REMATCH[1]}"
+            MINOR="${BASH_REMATCH[2]}"
+            PATCH="${BASH_REMATCH[3]}"
+            TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${SERVICE}-${REF_NAME}"
+            TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${SERVICE}-${MAJOR}.${MINOR}.${PATCH}"
+            TAGS="${TAGS}"$'\n'"${IMAGE_REPO}:${SERVICE}-${MAJOR}.${MINOR}"
+          fi
+
+          {
+            echo "tags<<EOF"
+            echo "${TAGS}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          provenance: true
+          sbom: true
+          tags: ${{ steps.tags.outputs.tags }}
+
+      - name: Select image for scan
+        id: scanref
+        shell: bash
+        run: |
+          set -euo pipefail
+          FIRST_TAG="$(echo "${{ steps.tags.outputs.tags }}" | head -n 1)"
+          echo "image_ref=${FIRST_TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ steps.scanref.outputs.image_ref }}
+          format: sarif
+          output: trivy-results-${{ matrix.service }}.sarif
+          vuln-type: 'os,library'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Upload Trivy SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results-${{ matrix.service }}.sarif
+
+      - name: Docker summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### ${{ matrix.service }}"
+            echo "- Repo: \`docker.io/${{ secrets.DOCKERHUB_USERNAME }}/cqrs\`"
+            echo "- Digest: \`${{ steps.build.outputs.digest }}\`"
+            echo "- Tags:"
+            while IFS= read -r tag; do
+              [ -n "$tag" ] && echo "  - \`$tag\`"
+            done <<'TAGS'
+${{ steps.tags.outputs.tags }}
+TAGS
+            echo
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -26,7 +26,6 @@ A production-style CQRS starter for a `Catalog` domain with:
 - [Run The Services](#run-the-services)
 - [Verify Local Setup](#verify-local-setup)
 - [CI Pipeline](#ci-pipeline)
-- [Docker Publish Pipeline](#docker-publish-pipeline)
 - [GitOps With Argo CD (Next Step)](#gitops-with-argo-cd-next-step)
 - [Current Status](#current-status)
 - [Roadmap](#roadmap)
@@ -285,22 +284,9 @@ docker exec -it cqrs_postgres psql -U postgres -d catalog_read -c "\dt"
 
 GitHub Actions workflows are added under `.github/workflows`:
 
-- `ci.yml`: restore, build, code-style check (`dotnet format`), tests (if test projects exist), and test report artifact upload.
+- `ci.yml`: restore, build, code-style check (`dotnet format`), tests (if test projects exist), Docker image publish, and Trivy image scanning.
 - `codeql.yml`: CodeQL static analysis for C# on push, PR, and weekly schedule.
 - `dependency-review.yml`: dependency vulnerability/license risk checks on pull requests.
-
-## Docker Publish Pipeline
-
-Workflow: `.github/workflows/docker-publish.yml`
-
-What it does:
-
-- Builds and pushes 3 images to Docker Hub:
-  - `cqrs-catalog-write-api`
-  - `cqrs-catalog-read-api`
-  - `cqrs-catalog-projection-worker`
-- Uses Buildx with SBOM + provenance enabled.
-- Applies versioned tags automatically.
 
 ### Docker Hub Secrets Required
 
@@ -309,20 +295,40 @@ Set these repository secrets in GitHub:
 - `DOCKERHUB_USERNAME`
 - `DOCKERHUB_TOKEN`
 
+### Docker Publish + Scan Strategy (inside CI)
+
+CI publishes all services into a single Docker Hub repository:
+
+- `docker.io/<DOCKERHUB_USERNAME>/cqrs`
+
+Service-specific tags are used in that repository.
+
+Per service (`write-api`, `read-api`, `projection-worker`), CI:
+
+1. Builds and pushes the image.
+2. Runs Trivy image scan (`HIGH,CRITICAL`) and uploads SARIF to GitHub Security.
+3. Fails pipeline if scan finds high/critical vulnerabilities.
+
 ### Tagging Strategy
 
 On `main` branch push:
 
-- `latest`
-- `main`
-- `sha-<commit>`
+- `<service>-latest`
+- `<service>-main`
+- `<service>-sha-<commit>`
+
+On `master` branch push:
+
+- `<service>-latest`
+- `<service>-master`
+- `<service>-sha-<commit>`
 
 On release tag push (example `v1.4.2`):
 
-- `v1.4.2`
-- `1.4.2`
-- `1.4`
-- `sha-<commit>`
+- `<service>-v1.4.2`
+- `<service>-1.4.2`
+- `<service>-1.4`
+- `<service>-sha-<commit>`
 
 ### Release Command
 
