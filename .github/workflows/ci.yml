@@ -172,10 +172,8 @@ jobs:
             echo "- Repo: \`docker.io/${{ secrets.DOCKERHUB_USERNAME }}/cqrs\`"
             echo "- Digest: \`${{ steps.build.outputs.digest }}\`"
             echo "- Tags:"
-            while IFS= read -r tag; do
+            printf '%s\n' "${{ steps.tags.outputs.tags }}" | while IFS= read -r tag; do
               [ -n "$tag" ] && echo "  - \`$tag\`"
-            done <<'TAGS'
-${{ steps.tags.outputs.tags }}
-TAGS
+            done
             echo
           } >> "$GITHUB_STEP_SUMMARY"
