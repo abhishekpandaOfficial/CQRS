@@ -1,0 +1,15 @@
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/bin/Debug/net10.0/Catalog.Read.Infrastructure.deps.json
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/bin/Debug/net10.0/Catalog.Read.Infrastructure.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/bin/Debug/net10.0/Catalog.Read.Infrastructure.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/bin/Debug/net10.0/Catalog.Shared.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/bin/Debug/net10.0/Catalog.Shared.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.csproj.AssemblyReference.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.AssemblyInfoInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.AssemblyInfo.cs
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog..0E544326.Up2Date
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/refint/Catalog.Read.Infrastructure.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/Catalog.Read.Infrastructure.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Read.Infrastructure/obj/Debug/net10.0/ref/Catalog.Read.Infrastructure.dll

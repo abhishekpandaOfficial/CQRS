@@ -1,0 +1,15 @@
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/bin/Debug/net10.0/Catalog.Write.Domain.deps.json
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/bin/Debug/net10.0/Catalog.Write.Domain.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/bin/Debug/net10.0/Catalog.Write.Domain.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/bin/Debug/net10.0/Catalog.Shared.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/bin/Debug/net10.0/Catalog.Shared.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.csproj.AssemblyReference.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.AssemblyInfoInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.AssemblyInfo.cs
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.csproj.CoreCompileInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog..E7B8AC32.Up2Date
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/refint/Catalog.Write.Domain.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/Catalog.Write.Domain.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Write.Domain/obj/Debug/net10.0/ref/Catalog.Write.Domain.dll

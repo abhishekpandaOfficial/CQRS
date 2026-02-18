@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Catalog.Projection.Worker/Catalog.Projection.Worker.csproj" />
+    <Project Path="src/Catalog.Read.Api/Catalog.Read.Api.csproj" />
+    <Project Path="src/Catalog.Read.Infrastructure/Catalog.Read.Infrastructure.csproj" />
+    <Project Path="src/Catalog.Shared/Catalog.Shared.csproj" />
+    <Project Path="src/Catalog.Write.Api/Catalog.Write.Api.csproj" />
+    <Project Path="src/Catalog.Write.Application/Catalog.Write.Application.csproj" />
+    <Project Path="src/Catalog.Write.Domain/Catalog.Write.Domain.csproj" />
+    <Project Path="src/Catalog.Write.Infrastructure/Catalog.Write.Infrastructure.csproj" />
+  </Folder>
+</Solution>

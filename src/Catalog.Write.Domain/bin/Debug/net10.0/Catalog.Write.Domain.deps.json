@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Catalog.Write.Domain/1.0.0": {
+        "dependencies": {
+          "Catalog.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Catalog.Write.Domain.dll": {}
+        }
+      },
+      "Catalog.Shared/1.0.0": {
+        "runtime": {
+          "Catalog.Shared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Catalog.Write.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Catalog.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

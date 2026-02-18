@@ -1,0 +1,11 @@
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/bin/Debug/net10.0/Catalog.Shared.deps.json
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/bin/Debug/net10.0/Catalog.Shared.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/bin/Debug/net10.0/Catalog.Shared.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.AssemblyInfoInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.AssemblyInfo.cs
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.csproj.CoreCompileInputs.cache
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/refint/Catalog.Shared.dll
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/Catalog.Shared.pdb
+/Users/abhishek/Documents/MICROSERVICES/cqrs/src/Catalog.Shared/obj/Debug/net10.0/ref/Catalog.Shared.dll
